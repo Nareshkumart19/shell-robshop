@@ -6,7 +6,7 @@ INSTANCES=("mongodb" "redis")
 ZONE_ID="Z10073371KESZAOI9YC5L"
 DOMAIN_NAME="daws84s.space"
 
-for instance in ${instance[@]}
+for instance in ${INSTANCES[@]}
 do
 
     INSTANCES_ID=$(aws ec2 run-instances --image-id ami-09c813fb71547fc4f --security-group-ids sg-01ade26956bf74218 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Demo-EC2}]" --query "Instances[0].InstanceID" --output text
