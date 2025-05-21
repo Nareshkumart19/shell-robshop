@@ -8,13 +8,13 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-LOGFOLDER="/var/log/roboshop.logs"
+LOGFOLDER="/var/log/roboshop-logs"
 SCRIPT_NAME=$(echo $0  | cut -d "." -f1)
 LOGFILE="$LOGFOLDER/$SCRIPT_NAME.log"
 
 
 mkdir -p $LOGFOLDER
-echo "script started exeuted at : $(date)" &>>$LOGFILE
+echo "script started exeuted at : $(date)" | tee -a $LOG_FILE
 
 if [ $userid -ne 0 ]
 then
