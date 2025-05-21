@@ -31,7 +31,7 @@ VALIDATE(){
         echo -e " $2    ....$G sucessfully $N" | tee -a $LOGFILE
     else
         echo -e " $2 . $R   failure $N" | tee -a $LOGFILE
-        exit 1s
+        exit 1
     fi
 }
 
