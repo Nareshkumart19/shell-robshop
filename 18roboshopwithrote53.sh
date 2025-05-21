@@ -2,7 +2,7 @@
 
 AMI_ID="ami-09c813fb71547fc4f"
 SGI_ID="sg-01ade26956bf74218"
-INSTANCES=("mongodb" "cataloge" "fronend")  
+INSTANCES=("mongodb" "cataloge" "frontend")  
 ZONE_ID="Z10073371KESZAOI9YC5L"
 DOMAIN_NAME="daws84s.space"
 
@@ -27,7 +27,7 @@ do
       "Action"              : "UPSERT"
       ,"ResourceRecordSet"  : {
         "Name"              : "'$instance'.'$DOMAIN_NAME'"
-        ,"Type"             : "CNAME"
+        ,"Type"             : "A"
         ,"TTL"              : 120
         ,"ResourceRecords"  : [{
             "Value"         : "'$IP'"
