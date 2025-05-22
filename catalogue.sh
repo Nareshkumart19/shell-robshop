@@ -51,7 +51,7 @@ then
 else 
     echo -e "system user roboshop alraedy cretaed .... $Y skipping $N"
 fi    
-mkdir /app 
+mkdir -p /app 
 VALIDATE $? "careating app  directory"
 
 
