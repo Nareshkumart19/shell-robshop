@@ -55,10 +55,12 @@ mkdir -p /app
 VALIDATE $? "careating app  directory"
 
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip  &>>$LOG_FILE
 VALIDATE $? "Dowlinding catalouge "
 
+rm -rf /app/*
 cd /app 
+
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "unziping catlouge"
 
