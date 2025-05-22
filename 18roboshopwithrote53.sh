@@ -2,7 +2,7 @@
 
 AMI_ID="ami-09c813fb71547fc4f"
 SGI_ID="sg-01ade26956bf74218"
-INSTANCES=("mongodb" "catalouge"  "user" "frontend")  
+INSTANCES=("mongodb" "catalogue"  "user" "frontend")  
 ZONE_ID="Z10073371KESZAOI9YC5L"
 DOMAIN_NAME="daws84s.space"
 
