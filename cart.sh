@@ -1,5 +1,5 @@
 #!/bin/bash
-start_time=$(date +%s) 
+
 USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
@@ -55,38 +55,41 @@ mkdir -p /app
 VALIDATE $? "careating app  directory"
 
 
-curl -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip  &>>$LOG_FILE
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip  &>>$LOG_FILE
 VALIDATE $? "Dowlinding catalouge "
 
 rm -rf /app/*
 cd /app 
 
-unzip /tmp/user.zip &>>$LOG_FILE
+unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "unziping catlouge"
 
 npm install &>>$LOG_FILE
 VALIDATE $?  "installing dependies"
 
 
-cp $SCRIPT_DIR/user.service /etc/systemd/system/user.service
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "copy the calalogue service"
 
 systemctl daemon-reload &>>$LOG_FILE
-systemctl enable user  &>>$LOG_FILE
-systemctl start user
-VALIDATE $? "starting user"
+systemctl enable catalogue  &>>$LOG_FILE
+systemctl start catalogue
+VALIDATE $? "starting catalogue"
 
 
+cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo
+dnf install mongodb-mongosh -y &>>$LOG_FILE
+VALIDATE $? "installing Mongodb client"
 
 
 #$mongosh --host mongodb.daws84s.space </app/db/master-data.js &>>$LOG_FILE
 #VALIDATE $? "loding data into mongdb"
 
-#STATUS=$(mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().indexOf("user")')
-#if [ $STATUS -lt 0 ]
-#then
-#    mongosh --host mongodb.daws84s.site </app/db/master-data.js &>>$LOG_FILE
-#    VALIDATE $? "Loading data into MongoDB"
-#else
-#    echo -e "Data is already loaded ... $Y SKIPPING $N"
-#fi
+STATUS=$(mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+if [ $STATUS -lt 0 ]
+then
+    mongosh --host mongodb.daws84s.site </app/db/master-data.js &>>$LOG_FILE
+    VALIDATE $? "Loading data into MongoDB"
+else
+    echo -e "Data is already loaded ... $Y SKIPPING $N"
+fi
