@@ -18,3 +18,5 @@ do
     fi
     echo "$instance  IP address: $IP"
 done 
+
+ji
