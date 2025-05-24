@@ -1,6 +1,6 @@
 #!/bin/bash
 
-start_time=$(date +%s) 
+START_TIME=$(date +%s)
 USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
@@ -33,25 +33,25 @@ VALIDATE(){
     fi
 }
 
-dnf module disable redis -y &>>$LOG_FILE 
-VALIDATE $? "disable redis modules"
+dnf module disable redis -y &>>$LOG_FILE
+VALIDATE $? "Disabling Default Redis version"
 
-dnf module enable redis:7 -y &>>$LOG_FILE 
-VALIDATE $? "enable redis modules"
+dnf module enable redis:7 -y &>>$LOG_FILE
+VALIDATE $? "Enabling Redis:7"
 
-dnf install redis -y  &>>$LOG_FILE 
-VALIDATE " installing redis pakages"
+dnf install redis -y &>>$LOG_FILE
+VALIDATE $? "Installing Redis"
 
-sed -i -e  's/127.0.0.1/0.0.0.0/g'  -e '/protected-mode/ c protected-mode no/' /etc/redis/redis.conf &>>$LOG_FILE
+sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected-mode/ c protected-mode no' /etc/redis/redis.conf
 VALIDATE $? "Edited redis.conf to accept remote connections"
 
-systemctl enable redis  &>>$LOG_FILE
-VALIDATE   $? "enabling and service"
+systemctl enable redis &>>$LOG_FILE
+VALIDATE $? "Enabling Redis"
+
 systemctl start redis  &>>$LOG_FILE
-VALIDATE   $? "staring service"
- 
-end_time=$(date +%s)
+VALIDATE $? "Started Redis"
 
-total_time=$((end_time - start_time))
-echo "Total execution time:   Y $total_time seconds" $N | tee -a &>>$LOG_FILE 
+END_TIME=$(date +%s)
+TOTAL_TIME=$(( $END_TIME - $START_TIME ))
 
+echo -e "Script exection completed successfully, $Y time taken: $TOTAL_TIME seconds $N" | tee -a $LOG_FILE
