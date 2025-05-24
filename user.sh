@@ -77,6 +77,11 @@ systemctl start user
 VALIDATE $? "starting user"
 
 
+end_time=$(date +%s)
+
+total_time=$((end_time - start_time))
+echo  -e "Total execution time:   Y $total_time seconds" $N | tee -a &>>$LOG_FILE
+
 
 
 #$mongosh --host mongodb.daws84s.space </app/db/master-data.js &>>$LOG_FILE

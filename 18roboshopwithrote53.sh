@@ -6,6 +6,7 @@ INSTANCES=("frontend")
 ZONE_ID="Z10073371KESZAOI9YC5L"
 DOMAIN_NAME="daws84s.space"
 
+#run the script  with user  
 #for instance in ${INSTANCES[@]}
 for instance in $@
 do
