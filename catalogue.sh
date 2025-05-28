@@ -1,5 +1,6 @@
 #!/bin/bash
 
+start_time=$(date +%s) 
 USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
@@ -82,6 +83,7 @@ dnf install mongodb-mongosh -y &>>$LOG_FILE
 VALIDATE $? "installing Mongodb client"
 
 
+
 #$mongosh --host mongodb.daws84s.space </app/db/master-data.js &>>$LOG_FILE
 #VALIDATE $? "loding data into mongdb"
 
@@ -93,3 +95,6 @@ then
 else
     echo -e "Data is already loaded ... $Y SKIPPING $N"
 fi
+
+total_time=$((end_time - start_time))
+echo  -e "Total execution time:   Y $total_time seconds" $N | tee -a &>>$LOG_FILE
